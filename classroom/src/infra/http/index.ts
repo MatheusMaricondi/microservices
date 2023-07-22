@@ -1,5 +1,7 @@
 import express, { Request, Response } from "express"
 import dotenv from "dotenv"
+import { GetCourses } from "../../services/getCourses.service"
+import { ConsumeEvents } from "../../actions/consume"
 
 dotenv.config()
 const port = process.env.SERVER_PORT
@@ -7,12 +9,13 @@ const app = express()
 
 app.use(express.json())
 
-app.get('/my-courses/:email', async (req: Request, res: Response) => {
-    const { email } = req.params
-    
-    res.status(201).json()
+ConsumeEvents.execute() // consume new events
+app.get('/my-courses/:id', async (req: Request, res: Response) => {
+    const { id } = req.params
+    const studentCourses = new GetCourses().execute({userId: parseInt(id)})
+    res.status(201).json(studentCourses)
 });
 
 app.listen(port, () => {
-    console.log(`purchase service its running at localhost:${port}`)
+    console.log(`classroom service its running at localhost:${port}`)
 })
