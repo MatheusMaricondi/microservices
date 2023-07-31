@@ -12,21 +12,18 @@ datasource db {
 
 model Courses {
   id          Int       @id @default(autoincrement())
+  courseCode  String    @unique
   courseName  String    @unique
-  students StudentCourses[]
 }
 
 model Student {
   id          Int       @id @default(autoincrement())
   email       String
   name        String
-  courses StudentCourses[]
 }
 
 model StudentCourses {
-  course Courses @relation(fields: [courseId], references: [id])
   courseId Int
-  student Student @relation(fields: [studentId], references: [id])
   studentId Int
   @@id([courseId, studentId])
 }

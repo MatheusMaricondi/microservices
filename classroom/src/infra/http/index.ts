@@ -12,7 +12,7 @@ app.use(express.json())
 ConsumeEvents.execute() // consume new events
 app.get('/my-courses/:id', async (req: Request, res: Response) => {
     const { id } = req.params
-    const studentCourses = new GetCourses().execute({userId: parseInt(id)})
+    const studentCourses = await new GetCourses().execute({userId: parseInt(id)})
     res.status(201).json(studentCourses)
 });
 

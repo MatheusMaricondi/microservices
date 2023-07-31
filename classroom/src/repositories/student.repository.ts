@@ -20,6 +20,6 @@ export class StudentRepository {
             select: {id: true},
             where: {email}
         })
-        return user
+        return user?.id
     }
 }

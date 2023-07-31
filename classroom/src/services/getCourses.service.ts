@@ -1,4 +1,4 @@
-import { StudentCourseRepository } from "../repositories/courses.repository"
+import { StudentCourseRepository } from "../repositories/studentCourses.repository"
 
 interface StudentRequest {
     userId: number
@@ -7,7 +7,7 @@ interface StudentRequest {
 export class GetCourses {
     async execute(studentRequest: StudentRequest) {
         const studentCourses = await new StudentCourseRepository().execute(studentRequest)
-
+        
         return studentCourses
     }
 }
